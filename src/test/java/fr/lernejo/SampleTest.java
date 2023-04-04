@@ -1,30 +1,36 @@
 package fr.lernejo;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class SampleTest {
+   private final Sample sample = new Sample();
    @Test
-   void dividing_by_zero_should_produce_an_exception() {
-      int dividend = 10;
-      int divisor = 0;
-      Assertions.assertThrows(DivisionByZeroException.class,
-         () -> Sample.divide(dividend, divisor));
+   void testOpAdd() {
+      int result = sample.op(Sample.Operation.ADD, 2, 3);
+      Assertions.assertEquals(5, result);
    }
 
    @Test
-   void dividing_10_by_2_should_produce_5() {
-      int dividend = 10;
-      int divisor = 2;
-      int quotient = Sample.divide(dividend, divisor);
-      Assertions.assertEquals(5, quotient);
+   void testOpMult() {
+      int result = sample.op(Sample.Operation.MULT, 2, 3);
+      Assertions.assertEquals(6, result);
    }
 
    @Test
-   void dividing_negative_dividend_should_produce_an_exception() {
-      int dividend = -10;
-      int divisor = 2;
-      Assertions.assertThrows(NegativeDividendException.class,
-         () -> Sample.divide(dividend, divisor));
+   void testFactWithNegativeNumber() {
+      Assertions.assertThrows(IllegalArgumentException.class, () -> sample.fact(-1));
    }
+
+   @Test
+   void testFactWithZero() {
+      int result = sample.fact(0);
+      Assertions.assertEquals(1, result);
+   }
+
+   @Test
+   void testFactWithPositiveNumber() {
+      int result = sample.fact(5);
+      Assertions.assertEquals(120, result);
+   }
+  
 }
